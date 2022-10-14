@@ -18,10 +18,10 @@ phases:
   post_build:
     commands:
       - echo $LAMBDA_NAME
-      - CURRENT_VERSION = $(aws lambda get-alias --function-name $LAMBDA_NAME --name ALIAS | jq -r .FunctionVersion)
+      - CURRENT_VERSION = $(aws lambda get-alias --function-name $LAMBDA_NAME --name $ALIAS | jq -r .FunctionVersion)
       - echo CURRENT_VERSION
       - aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file fileb://lambda.zip
-      - TARGET_VERSION = $(aws lambda publish-version --function-name $LAMBDA_NAME --name ALIAS | jq -r .Version)
+      - TARGET_VERSION = $(aws lambda publish-version --function-name $LAMBDA_NAME | jq -r .Version)
       - echo TargetVersion
       - sed -i "s/ReplaceCurrentVersion/$CURRENT_VERSION" appspec.yml
       - sed -i "s/ReplaceTargetVersion/$TargetVersion" appspec.yml
