@@ -1,23 +1,33 @@
 version: 0.2
-        
+env: 
+  variables:
+    LAMBDA_NAME: alfred-1013-lambda-test
+    ALIAS: lastest
 phases:
   install:
     runtime-versions:
       nodejs: 12
     commands:
-      - npm install
-  pre_build:
-    commands:
-      - npm run lint
+      - yum update -y
+      - yum install zip -y
+      - yum install jq -y
+      - mkdir -p dist
   build:
     commands:
-      - npm run build
+      - zip -r lambda.zip lambda/*
   post_build:
     commands:
-      - echo "do nothing"
+      - echo $LAMBDA_NAME
+      - CURRENT_VERSION = $(aws lambda get-alias --function-name $LAMBDA_NAME --name ALIAS | jq -r .FunctionVersion)
+      - echo CURRENT_VERSION
+      - aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file fileb://lambda.zip
+      - echo TargetVersion
+      - sed -i "s/ReplaceCurrentVersion/$CURRENT_VERSION" appspec.yml
+      - sed -i "s/ReplaceTargetVersion/$TargetVersion" appspec.yml
+      - cp appsepc.yml dist/appapec.yml
 artifacts:
   files:
-    - '**/*'
-    - location
+    - 'appspec.yml'
   base-directory: dist
   discard-paths: no 
+  

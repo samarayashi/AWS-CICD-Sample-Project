@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Name: alfred-1013-lambda-test
+      Alias: lastest
+      CurrentVersion: "ReplaceCurrentVersion"
+      TargetVersion: "ReplaceTargetVersion"
