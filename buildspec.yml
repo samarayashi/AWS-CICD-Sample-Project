@@ -25,7 +25,7 @@ phases:
       # - echo TargetVersion
       # - sed -i "s/ReplaceCurrentVersion/$CURRENT_VERSION" appspec.yml
       # - sed -i "s/ReplaceTargetVersion/$TargetVersion" appspec.yml
-      - cp appsepc.yml dist/appapec.yml
+      - cp appsepc.yml dist/appspec.yml
 artifacts:
   files:
     - 'appspec.yml'
