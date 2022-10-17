@@ -1,0 +1,23 @@
+version: 0.2
+        
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - npm install
+  pre_build:
+    commands:
+      - npm run lint
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - echo "do nothing"
+artifacts:
+  files:
+    - '**/*'
+    - location
+  base-directory: dist
+  discard-paths: no 
