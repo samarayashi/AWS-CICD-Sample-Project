@@ -3,22 +3,25 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 16
     commands:
-      - echo "Installing"
-      - npm install
-  pre_build:
-    commands:
-      - echo "pre_build"
+      - echo "======================  codebuild cicd hello test   ============================="
   build:
     commands:
-      - npm run start
-  post_build:
-    commands:
-      - echo "post_build"
+      #這時候我們在專案folder裡
+      - yum install p7zip -y
+      - chmod +x _scripts -R
+      - npm config set package-lock false
+      - npm install --legacy-peer-deps
+      - echo "project installed..."
+      # npm install 的時候, 本機檔案會做成像mount point的樣子, 上傳過程中會被省略
+      # 所以這邊用7zip把它變成檔案, 再unzip上傳
+      - 7za a hello_test.7z ./*
+      - echo $(ls)
+      - 7za x hello_test.7z -o./hello_test
+
 artifacts:
+  base-directory: ./cicd-test
   files:
     - '**/*'
-    - location
-  base-directory: dist
-  discard-paths: no 
+
