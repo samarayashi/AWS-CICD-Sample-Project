@@ -5,16 +5,17 @@ phases:
     runtime-versions:
       nodejs: 12
     commands:
+      - echo "Installing"
       - npm install
   pre_build:
     commands:
-      - npm run lint
+      - echo "pre_build"
   build:
     commands:
-      - npm run build
+      - npm run start
   post_build:
     commands:
-      - echo "do nothing"
+      - echo "post_build"
 artifacts:
   files:
     - '**/*'
