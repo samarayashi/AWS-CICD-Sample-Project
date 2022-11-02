@@ -10,23 +10,7 @@ permissions:
     group: ec2-user
     mode: 4755
 hooks:
-  ApplicationStop:
-    - location: _scripts/stop-forever.sh
-      timeout: 300
-      runas: ec2-user
-  BeforeInstall:
-    - location: _scripts/erase-files.sh
-      timeout: 300
-      runas: ec2-user
-  AfterInstall:
-    - location: _scripts/mount-efs.sh
-      timeout: 300
-      runas: ec2-user
   ApplicationStart:
-    - location: _scripts/start-forever.sh
-      timeout: 300
-      runas: ec2-user
-  ValidateService:
-    - location: _scripts/deployagent-restart.sh
+    - location: _scripts/start-test.sh
       timeout: 300
       runas: ec2-user
