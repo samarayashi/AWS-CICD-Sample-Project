@@ -1,0 +1,32 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/104ha-hrmall
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+    mode: 4755
+hooks:
+  ApplicationStop:
+    - location: _scripts/stop-forever.sh
+      timeout: 300
+      runas: ec2-user
+  BeforeInstall:
+    - location: _scripts/erase-files.sh
+      timeout: 300
+      runas: ec2-user
+  AfterInstall:
+    - location: _scripts/mount-efs.sh
+      timeout: 300
+      runas: ec2-user
+  ApplicationStart:
+    - location: _scripts/start-forever.sh
+      timeout: 300
+      runas: ec2-user
+  ValidateService:
+    - location: _scripts/deployagent-restart.sh
+      timeout: 300
+      runas: ec2-user
