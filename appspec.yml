@@ -12,5 +12,5 @@ permissions:
 hooks:
   ApplicationStart:
     - location: _scripts/start-test.sh
-      timeout: 300
+      timeout: 180
       runas: ec2-user
