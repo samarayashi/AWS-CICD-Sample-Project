@@ -1,4 +1,5 @@
-#!/bin/bashnano
+#!/bin/bash
+
 BASEDIR=/opt/cicd-test
 APPNAME=cicd-test
 LOGS="${BASEDIR}/logs";
