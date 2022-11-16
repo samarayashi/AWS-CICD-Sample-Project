@@ -2,11 +2,11 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
+app.get('/alfred-test/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/status', (req, res) => {
+app.get('/alfred/status', (req, res) => {
   return res.json({code:200, message:'process on'}).end();
 })
 
